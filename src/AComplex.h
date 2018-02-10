@@ -13,52 +13,105 @@
 #define KMA_OOP_03LAB_ACOMPLEX_H
 
 #include <iostream>
+#include <cmath>
 
-//	Class methods & functios prototypes are taken from
+//	Class methods & utills prototypes are taken from
 // http://distedu.ukma.edu.ua/course/view.php?id=11 (may be unavailable for unregistered users),
 // which is a part of mandatory requirements
 
 class TComplex;
 
+class AComplex;
+
+std::ostream& operator<<(std::ostream &, const AComplex &); // TODO define
+
 class AComplex {
 public:
-	AComplex (double re=0, double im=0);
-	AComplex (const TComplex&);
-	AComplex (const AComplex&);
-	~AComplex();
+	inline AComplex(double re = 0, double im = 0);
+	// TODO implement
+	//AComplex(const TComplex&);
+	inline AComplex(const AComplex&);
+	inline ~AComplex();
 
-	AComplex& operator= (const AComplex&);
+	inline AComplex& operator=(const AComplex&);
 
-	double& re();
-	double& im();
+	inline double& re() { return this->_re; }
+	inline double& im() { return this->_im; }
 
-	double re() const;
-	double im() const;
+	inline double re() const { return this->_re; }
+	inline double im() const { return this->_im; }
 
-	double mod() const;
-	double arg() const;
+	inline double mod() const { return std::sqrt(re() * re() + im() * im()); }
+	inline double arg() const;
 
-	const AComplex conj() const;
+	inline const AComplex conj() const;
 private:
 	double _re, _im;
 	static unsigned _freeId;
-	unsigned _id;
+	const unsigned _id;
 };
 
-AComplex& operator+=(AComplex&, const AComplex&);
-AComplex& operator-=(AComplex&, const AComplex&);
-AComplex& operator*=(AComplex&, const AComplex&);
-AComplex& operator/=(AComplex&, const AComplex&);
+inline AComplex::AComplex(double re, double im):
+	_id(++_freeId),
+	_re(re),
+	_im(im)
+{
+#ifndef NDEBUG
+	std::cout << "constructor AComplex(re=" << re << ", im=" << im << ") call, "
+			  << *this << ", id=" << _id << " created" << std::endl;
+#endif
+}
 
-const AComplex  operator+ (const AComplex&, const AComplex&);
-const AComplex  operator- (const AComplex&, const AComplex&);
-const AComplex  power(const AComplex&, unsigned int);
+inline AComplex::AComplex(const AComplex &that):
+	_id(++_freeId),
+	_re(that._re),
+	_im(that._im)
+{
+#ifndef NDEBUG
+	std::cout << "constructor AComplex(re=" << that << ") call, "
+			  << *this << ", id=" << _id << " created" << std::endl;
+#endif
+}
 
-bool operator== (const AComplex&, const AComplex&);
-bool operator!= (const AComplex&, const AComplex&);
+inline AComplex::~AComplex() {
+#ifndef NDEBUG
+	std::cout << "destructor AComplex call, "
+			  << *this << ", id=" << _id << " deleted" << std::endl;
+#endif
+}
 
-std::ostream& operator<<(std::ostream &, const AComplex &);
-std::istream& operator>>(std::istream &, AComplex&);
+inline AComplex &AComplex::operator=(const AComplex &that) {
+	this->_re = that._re;
+	this->_im = that._im;
+	return *this;
+}
+
+inline double AComplex::arg() const {
+	// Expression: https://en.wikipedia.org/wiki/Argument_(complex_analysis)#Computation
+	if (_re == 0 && _im == 0)
+		return 0.0/0.0; // return NAN
+	if (_re < 0 && _im == 0)
+		return M_PI;
+	return 2 * std::atan(_im / (mod() + _re));
+}
+
+inline const AComplex AComplex::conj() const {
+	return AComplex(this->_re, -(this->_im));
+}
+
+AComplex& operator+=(AComplex&, const AComplex&); // TODO define
+AComplex& operator-=(AComplex&, const AComplex&); // TODO define
+AComplex& operator*=(AComplex&, const AComplex&); // TODO define
+AComplex& operator/=(AComplex&, const AComplex&); // TODO define
+
+const AComplex  operator+ (const AComplex&, const AComplex&); // TODO define
+const AComplex  operator- (const AComplex&, const AComplex&); // TODO define
+const AComplex  power(const AComplex&, unsigned int); // TODO define
+
+bool operator== (const AComplex&, const AComplex&); // TODO define
+bool operator!= (const AComplex&, const AComplex&); // TODO define
+
+std::istream& operator>>(std::istream &, AComplex&); // TODO define
 
 
 #endif //KMA_OOP_03LAB_ACOMPLEX_H
