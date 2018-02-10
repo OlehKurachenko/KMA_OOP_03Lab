@@ -23,7 +23,7 @@ class TComplex;
 
 class AComplex;
 
-std::ostream& operator<<(std::ostream &, const AComplex &); // TODO define
+std::ostream& operator<<(std::ostream &, const AComplex &);
 
 class AComplex {
 public:
@@ -99,17 +99,17 @@ inline const AComplex AComplex::conj() const {
 	return AComplex(this->_re, -(this->_im));
 }
 
-AComplex& operator+=(AComplex&, const AComplex&); // TODO define
-AComplex& operator-=(AComplex&, const AComplex&); // TODO define
-AComplex& operator*=(AComplex&, const AComplex&); // TODO define
-AComplex& operator/=(AComplex&, const AComplex&); // TODO define
+AComplex& operator+=(AComplex&, const AComplex&);
+AComplex& operator-=(AComplex&, const AComplex&);
+AComplex& operator*=(AComplex&, const AComplex&);
+AComplex& operator/=(AComplex&, const AComplex&);
 
-const AComplex  operator+ (const AComplex&, const AComplex&); // TODO define
-const AComplex  operator- (const AComplex&, const AComplex&); // TODO define
-const AComplex  power(const AComplex&, unsigned int); // TODO define
+const AComplex operator+(const AComplex&, const AComplex&);
+const AComplex operator-(const AComplex&, const AComplex&);
+const AComplex power(const AComplex&, unsigned int); // TODO define
 
-bool operator== (const AComplex&, const AComplex&); // TODO define
-bool operator!= (const AComplex&, const AComplex&); // TODO define
+bool operator==(const AComplex&, const AComplex&); // TODO define
+bool operator!=(const AComplex&, const AComplex&); // TODO define
 
 std::istream& operator>>(std::istream &, AComplex&); // TODO define
 
