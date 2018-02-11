@@ -11,6 +11,8 @@
 //  
 #include "AComplex.h"
 
+unsigned AComplex::_freeId(0);
+
 std::ostream& operator<<(std::ostream &ostr, const AComplex &aComplex) {
 	ostr << aComplex.re();
 	if (aComplex.im() > 0) ostr << '+';
