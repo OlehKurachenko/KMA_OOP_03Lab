@@ -24,3 +24,18 @@ TComplex::TComplex(const AComplex &aComplex):
 			  << *this << ", id=" << _id << " created" << std::endl;
 #endif
 }
+
+std::ostream& operator<<(std::ostream &ostr, const TComplex &tComplex) {
+	ostr << tComplex.mod() << "*(cos(" << tComplex.arg() << ")+i*sin(" << tComplex.arg() << "))";
+}
+
+std::istream& operator>>(std::istream &istr, TComplex &tComplex) {
+	// TODO handle wrong input
+	char temp_str[9];
+	istr >> tComplex.mod();
+	istr.read(temp_str, 6);
+	istr >> tComplex.arg();
+	istr.read(temp_str, 8);
+	istr >> tComplex.arg();
+	istr.read(temp_str, 2);
+}

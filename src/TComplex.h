@@ -49,14 +49,12 @@ private:
 	const unsigned _id;
 };
 
-TComplex& operator+=(TComplex& a, const TComplex& b);
-TComplex& operator-=(TComplex& a, const TComplex& b);
-TComplex& operator*=(TComplex& a, const TComplex& b);
-TComplex& operator/=(TComplex& a, const TComplex& b);
+inline TComplex& operator*=(TComplex& one, const TComplex& anohter);
+inline TComplex& operator/=(TComplex& one, const TComplex& another);
 
-const TComplex  operator* (const TComplex&, const TComplex&);
-const TComplex  operator/ (const TComplex&, const TComplex&);
-const TComplex  power(const TComplex&, unsigned int);
+inline const TComplex operator*(const TComplex&, const TComplex&);
+inline const TComplex operator/(const TComplex&, const TComplex&);
+inline const TComplex power(const TComplex&, unsigned int);
 
 std::istream& operator>>(std::istream &, TComplex&);
 
@@ -94,6 +92,30 @@ inline TComplex::~TComplex() {
 inline TComplex& TComplex::operator=(const TComplex &that) {
 	this->_ro = that._ro;
 	this->_phi = that._phi;
+}
+
+inline TComplex& operator*=(TComplex &one, const TComplex &anohter) {
+	one.mod() *= anohter.mod();
+	one.arg() += anohter.arg();
+}
+
+inline TComplex& operator/=(TComplex &one, const TComplex &another) {
+	one.mod() *= another.mod();
+	one.arg() -= another.arg();
+}
+
+inline const TComplex operator*(const TComplex &one, const TComplex &another) {
+	TComplex temp(one);
+	return temp *= another;
+}
+
+inline const TComplex operator/(const TComplex &one, const TComplex &another) {
+	TComplex temp(one);
+	return temp *= another;
+}
+
+inline const TComplex power(const TComplex &tComplex, unsigned power_val) {
+	return TComplex(std::pow(tComplex.mod(), power_val), tComplex.arg() * power_val);
 }
 
 #endif //KMA_OOP_03LAB_TCOMPLEX_H
