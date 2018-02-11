@@ -36,14 +36,14 @@ public:
 
 	inline TComplex& operator=(const TComplex&);
 
-	double& mod();
-	double& arg();
+	inline double& mod();
+	inline double& arg();
 
-	double mod() const;
-	double arg() const;
+	inline double mod() const;
+	inline double arg() const;
 
-	double re() const;
-	double im() const;
+	inline double re() const;
+	inline double im() const;
 private:
 	double _ro, _phi;
 	static unsigned _freeId;
@@ -95,6 +95,30 @@ inline TComplex::~TComplex() {
 inline TComplex& TComplex::operator=(const TComplex &that) {
 	this->_ro = that._ro;
 	this->_phi = that._phi;
+}
+
+inline double& TComplex::mod() {
+	return this->_ro;
+}
+
+inline double& TComplex::arg() {
+	return this->_phi;
+}
+
+inline double TComplex::mod() const {
+	return this->_ro;
+}
+
+inline double TComplex::arg() const {
+	return this->_phi;
+}
+
+inline double TComplex::re() const {
+	return mod() * cos(arg());
+}
+
+inline double TComplex::im() const {
+	return mod() * sin(arg());
 }
 
 #endif //KMA_OOP_03LAB_TCOMPLEX_H
