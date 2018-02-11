@@ -59,9 +59,6 @@ inline const AComplex operator+(const AComplex&, const AComplex&);
 inline const AComplex operator-(const AComplex&, const AComplex&);
 const AComplex power(const AComplex&, unsigned int);
 
-inline bool operator==(const AComplex&, const AComplex&);
-inline bool operator!=(const AComplex&, const AComplex&);
-
 std::istream& operator>>(std::istream &, AComplex&);
 
 // Definitions
@@ -132,14 +129,6 @@ inline const AComplex operator+(const AComplex &one, const AComplex &another) {
 inline const AComplex operator-(const AComplex &one, const AComplex &another) {
 	AComplex temp(one);
 	return temp-=another;
-}
-
-inline bool operator==(const AComplex &one, const AComplex &another) {
-	return one.im() != another.im() && one.re() == another.re();
-}
-
-inline bool operator!=(const AComplex &one, const AComplex &anohter) {
-	return !(one == anohter);
 }
 
 #endif //KMA_OOP_03LAB_ACOMPLEX_H
