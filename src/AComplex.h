@@ -51,10 +51,26 @@ private:
 	const unsigned _id;
 };
 
+inline AComplex& operator+=(AComplex&, const AComplex&);
+inline AComplex& operator-=(AComplex&, const AComplex&);
+AComplex& operator*=(AComplex&, const AComplex&);
+AComplex& operator/=(AComplex&, const AComplex&);
+
+inline const AComplex operator+(const AComplex&, const AComplex&);
+inline const AComplex operator-(const AComplex&, const AComplex&);
+const AComplex power(const AComplex&, unsigned int);
+
+inline bool operator==(const AComplex&, const AComplex&);
+inline bool operator!=(const AComplex&, const AComplex&);
+
+std::istream& operator>>(std::istream &, AComplex&);
+
+// Definitions
+
 inline AComplex::AComplex(double re, double im):
-	_id(++_freeId),
-	_re(re),
-	_im(im)
+		_id(++_freeId),
+		_re(re),
+		_im(im)
 {
 #ifndef NDEBUG
 	std::cout << "constructor AComplex(re=" << re << ", im=" << im << ") call, "
@@ -63,9 +79,9 @@ inline AComplex::AComplex(double re, double im):
 }
 
 inline AComplex::AComplex(const AComplex &that):
-	_id(++_freeId),
-	_re(that._re),
-	_im(that._im)
+		_id(++_freeId),
+		_re(that._re),
+		_im(that._im)
 {
 #ifndef NDEBUG
 	std::cout << "constructor AComplex(re=" << that << ") call, "
@@ -98,22 +114,6 @@ inline double AComplex::arg() const {
 inline const AComplex AComplex::conj() const {
 	return AComplex(this->_re, -(this->_im));
 }
-
-inline AComplex& operator+=(AComplex&, const AComplex&);
-inline AComplex& operator-=(AComplex&, const AComplex&);
-AComplex& operator*=(AComplex&, const AComplex&);
-AComplex& operator/=(AComplex&, const AComplex&);
-
-inline const AComplex operator+(const AComplex&, const AComplex&);
-inline const AComplex operator-(const AComplex&, const AComplex&);
-const AComplex power(const AComplex&, unsigned int);
-
-inline bool operator==(const AComplex&, const AComplex&);
-inline bool operator!=(const AComplex&, const AComplex&);
-
-std::istream& operator>>(std::istream &, AComplex&);
-
-// Definitions
 
 inline AComplex& operator+=(AComplex &aComplex, const AComplex &val) {
 	aComplex.re() += val.re();
