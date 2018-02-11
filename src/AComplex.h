@@ -99,19 +99,48 @@ inline const AComplex AComplex::conj() const {
 	return AComplex(this->_re, -(this->_im));
 }
 
-AComplex& operator+=(AComplex&, const AComplex&);
-AComplex& operator-=(AComplex&, const AComplex&);
+inline AComplex& operator+=(AComplex&, const AComplex&);
+inline AComplex& operator-=(AComplex&, const AComplex&);
 AComplex& operator*=(AComplex&, const AComplex&);
 AComplex& operator/=(AComplex&, const AComplex&);
 
-const AComplex operator+(const AComplex&, const AComplex&);
-const AComplex operator-(const AComplex&, const AComplex&);
-const AComplex power(const AComplex&, unsigned int); // TODO define
+inline const AComplex operator+(const AComplex&, const AComplex&);
+inline const AComplex operator-(const AComplex&, const AComplex&);
+const AComplex power(const AComplex&, unsigned int);
 
-bool operator==(const AComplex&, const AComplex&); // TODO define
-bool operator!=(const AComplex&, const AComplex&); // TODO define
+inline bool operator==(const AComplex&, const AComplex&);
+inline bool operator!=(const AComplex&, const AComplex&);
 
-std::istream& operator>>(std::istream &, AComplex&); // TODO define
+std::istream& operator>>(std::istream &, AComplex&);
 
+// Definitions
+
+inline AComplex& operator+=(AComplex &aComplex, const AComplex &val) {
+	aComplex.re() += val.re();
+	aComplex.im() += val.im();
+}
+
+inline AComplex& operator-=(AComplex &aComplex, const AComplex &val) {
+	aComplex.re() -= val.re();
+	aComplex.im() -= val.im();
+}
+
+inline const AComplex operator+(const AComplex &one, const AComplex &another) {
+	AComplex temp(one);
+	return temp+=another;
+}
+
+inline const AComplex operator-(const AComplex &one, const AComplex &another) {
+	AComplex temp(one);
+	return temp-=another;
+}
+
+inline bool operator==(const AComplex &one, const AComplex &another) {
+	return one.im() != another.im() && one.re() == another.re();
+}
+
+inline bool operator!=(const AComplex &one, const AComplex &anohter) {
+	return !(one == anohter);
+}
 
 #endif //KMA_OOP_03LAB_ACOMPLEX_H

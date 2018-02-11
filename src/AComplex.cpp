@@ -18,16 +18,6 @@ std::ostream& operator<<(std::ostream &ostr, const AComplex &aComplex) {
 	return ostr;
 }
 
-AComplex& operator+=(AComplex &aComplex, const AComplex &val) {
-	aComplex.re() += val.re();
-	aComplex.im() += val.im();
-}
-
-AComplex& operator-=(AComplex &aComplex, const AComplex &val) {
-	aComplex.re() -= val.re();
-	aComplex.im() -= val.im();
-}
-
 AComplex& operator*=(AComplex &aComplex, const AComplex &val) {
 	double temp_im(aComplex.im() * val.re() + aComplex.re() * val.im());
 	aComplex.re() = aComplex.re() * val.re() - aComplex.im() * val.im();
@@ -41,12 +31,25 @@ AComplex& operator/=(AComplex &aComplex, const AComplex &val) {
 	aComplex.im() = temp_im;
 }
 
-const AComplex operator+(const AComplex &one, const AComplex &another) {
-	AComplex temp(one);
-	return temp+=another;
+const AComplex power(const AComplex &aComplex, unsigned power_val) {
+	AComplex res(1);
+	AComplex temp(aComplex);
+	while (power_val) {
+		if (power_val & 1)
+			res *= temp;
+		temp *= temp;
+		power_val >>= 1;
+	}
+	return res;
 }
 
-const AComplex operator-(const AComplex &one, const AComplex &another) {
-	AComplex temp(one);
-	return temp-=another;
+std::istream& operator>>(std::istream &istr, AComplex &aComplex) {
+	// TODO handle wrong input
+	char temp;
+	istr >> aComplex.re();
+	istr >> aComplex.im();
+	istr >> temp;
+	if (temp != 'i')
+		; // TODO ask what is that best way to handle it
+	return istr;
 }
