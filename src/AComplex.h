@@ -84,7 +84,7 @@ inline AComplex::AComplex(const AComplex &that):
 		_im(that._im)
 {
 #ifndef NDEBUG
-	std::cout << "constructor AComplex(re=" << that << ") call, "
+	std::cout << "constructor AComplex(" << that << ") call, "
 			  << *this << ", id=" << _id << " created" << std::endl;
 #endif
 }
