@@ -28,8 +28,7 @@ std::ostream& operator<<(std::ostream &, const AComplex &);
 class AComplex {
 public:
 	inline AComplex(double re = 0, double im = 0);
-	// TODO implement
-	//AComplex(const TComplex&);
+	AComplex(const TComplex&);
 	inline AComplex(const AComplex&);
 	inline ~AComplex();
 

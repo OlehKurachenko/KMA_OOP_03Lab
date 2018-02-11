@@ -10,8 +10,20 @@
 //  rate, CV & contacts http://www.linkedin.com/in/oleh-kurachenko-6b025b111
 //  
 #include "AComplex.h"
+#include "TComplex.h"
 
 unsigned AComplex::_freeId(0);
+
+AComplex::AComplex(const TComplex &tComplex):
+	_id(++_freeId),
+	_re(tComplex.re()),
+	_im(tComplex.im())
+{
+#ifndef NDEBUG
+	std::cout << "constructor AComplex(" << tComplex << ") call, "
+			  << *this << ", id=" << _id << " created" << std::endl;
+#endif
+}
 
 std::ostream& operator<<(std::ostream &ostr, const AComplex &aComplex) {
 	ostr << aComplex.re();
