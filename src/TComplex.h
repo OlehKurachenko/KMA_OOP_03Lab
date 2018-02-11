@@ -56,6 +56,9 @@ inline const TComplex operator*(const TComplex&, const TComplex&);
 inline const TComplex operator/(const TComplex&, const TComplex&);
 inline const TComplex power(const TComplex&, unsigned int);
 
+inline bool operator==(const TComplex&, const TComplex&);
+inline bool operator!=(const TComplex&, const TComplex&);
+
 std::istream& operator>>(std::istream &, TComplex&);
 
 // Definitions
@@ -116,6 +119,14 @@ inline const TComplex operator/(const TComplex &one, const TComplex &another) {
 
 inline const TComplex power(const TComplex &tComplex, unsigned power_val) {
 	return TComplex(std::pow(tComplex.mod(), power_val), tComplex.arg() * power_val);
+}
+
+inline bool operator==(const TComplex &one, const TComplex &another) {
+	return one.mod() == another.mod() && one.arg() == another.arg();
+}
+
+inline bool operator!=(const TComplex &one, const TComplex &another) {
+	return !(one==another);
 }
 
 #endif //KMA_OOP_03LAB_TCOMPLEX_H
