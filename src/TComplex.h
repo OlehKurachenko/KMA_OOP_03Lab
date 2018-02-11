@@ -30,20 +30,19 @@ class TComplex
 public:
 	inline TComplex (double ro = 0, double phi = 0);
 	inline TComplex (const TComplex&);
-	// TODO implement
-	//TComplex (const AComplex&);
+	TComplex (const AComplex&);
 	inline ~TComplex();
 
 	inline TComplex& operator=(const TComplex&);
 
-	inline double& mod();
-	inline double& arg();
+	inline double& mod() { return this->_ro; }
+	inline double& arg() { return this->_phi; }
 
-	inline double mod() const;
-	inline double arg() const;
+	inline double mod() const { return this->_ro; }
+	inline double arg() const { return this->_phi; }
 
-	inline double re() const;
-	inline double im() const;
+	inline double re() const { return mod() * std::cos(arg()); }
+	inline double im() const { return mod() * std::sin(arg()); }
 private:
 	double _ro, _phi;
 	static unsigned _freeId;
@@ -63,7 +62,7 @@ std::istream& operator>>(std::istream &, TComplex&);
 
 // Definitions
 
-inline TComplex::TComplex(double ro=0, double phi=0):
+inline TComplex::TComplex(double ro, double phi):
 	_id(++_freeId),
 	_ro(ro),
 	_phi(phi)
@@ -95,30 +94,6 @@ inline TComplex::~TComplex() {
 inline TComplex& TComplex::operator=(const TComplex &that) {
 	this->_ro = that._ro;
 	this->_phi = that._phi;
-}
-
-inline double& TComplex::mod() {
-	return this->_ro;
-}
-
-inline double& TComplex::arg() {
-	return this->_phi;
-}
-
-inline double TComplex::mod() const {
-	return this->_ro;
-}
-
-inline double TComplex::arg() const {
-	return this->_phi;
-}
-
-inline double TComplex::re() const {
-	return mod() * cos(arg());
-}
-
-inline double TComplex::im() const {
-	return mod() * sin(arg());
 }
 
 #endif //KMA_OOP_03LAB_TCOMPLEX_H
